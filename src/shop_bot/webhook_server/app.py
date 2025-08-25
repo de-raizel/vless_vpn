@@ -29,9 +29,8 @@ ALL_SETTINGS_KEYS = [
     "panel_login", "panel_password", "about_text", "terms_url", "privacy_url",
     "support_user", "support_text", "channel_url", "telegram_bot_token",
     "telegram_bot_username", "admin_telegram_id", "yookassa_shop_id",
-    "yookassa_secret_key", "sbp_enabled", "receipt_email", "cryptobot_token",
-    "heleket_merchant_id", "heleket_api_key", "domain", "referral_percentage",
-    "referral_discount", "ton_wallet_address", "tonapi_key", "force_subscription"
+    "yookassa_secret_key", "sbp_enabled", "receipt_email", "heleket_api_key", 
+    "domain", "referral_percentage","referral_discount", "force_subscription"
 ]
 
 def create_webhook_app(bot_controller_instance):
@@ -278,5 +277,5 @@ def create_webhook_app(bot_controller_instance):
         except Exception as e:
             logger.error(f"Error in yookassa webhook handler: {e}", exc_info=True)
             return 'Error', 500
-            
+
     return flask_app

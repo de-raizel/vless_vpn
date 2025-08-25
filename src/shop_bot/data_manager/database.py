@@ -439,30 +439,6 @@ def create_pending_transaction(payment_id: str, user_id: int, amount_rub: float,
         logging.error(f"Failed to create pending transaction: {e}")
         return 0
 
-def find_and_complete_ton_transaction(payment_id: str, amount_ton: float) -> dict | None:
-    try:
-        with sqlite3.connect(DB_FILE) as conn:
-            conn.row_factory = sqlite3.Row
-            cursor = conn.cursor()
-            
-            cursor.execute("SELECT * FROM transactions WHERE payment_id = ? AND status = 'pending'", (payment_id,))
-            transaction = cursor.fetchone()
-            if not transaction:
-                logger.warning(f"TON Webhook: Received payment for unknown or completed payment_id: {payment_id}")
-                return None
-            
-            
-            cursor.execute(
-                "UPDATE transactions SET status = 'paid', amount_currency = ?, currency_name = 'TON', payment_method = 'TON' WHERE payment_id = ?",
-                (amount_ton, payment_id)
-            )
-            conn.commit()
-            
-            return json.loads(transaction['metadata'])
-    except sqlite3.Error as e:
-        logging.error(f"Failed to complete TON transaction {payment_id}: {e}")
-        return None
-
 def log_transaction(username: str, transaction_id: str | None, payment_id: str | None, user_id: int, status: str, amount_rub: float, amount_currency: float | None, currency_name: str | None, payment_method: str, metadata: str):
     try:
         with sqlite3.connect(DB_FILE) as conn:
