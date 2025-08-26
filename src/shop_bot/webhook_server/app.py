@@ -20,7 +20,7 @@ from shop_bot.data_manager.database import (
     create_host, delete_host, create_plan, delete_plan, get_user_count,
     get_total_keys_count, get_total_spent_sum, get_daily_stats_for_charts,
     get_recent_transactions, get_paginated_transactions, get_all_users, get_user_keys,
-    ban_user, unban_user, delete_user_keys, get_setting, find_and_complete_ton_transaction
+    ban_user, unban_user, delete_user_keys, get_setting
 )
 
 _bot_controller = None
